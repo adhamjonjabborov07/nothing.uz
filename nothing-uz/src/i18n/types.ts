@@ -4,6 +4,7 @@ export interface TranslationStrings {
   nav_about: string;
   nav_subscriptions: string;
   nav_faq: string;
+  nav_donations?: string;
 
   // Hero
   hero_label: string;
@@ -118,6 +119,33 @@ export interface TranslationStrings {
   int_random_3: string;
   int_random_4: string;
   int_random_5: string;
+  int_badge?: string;
+  int_title?: string;
+  int_start_loading?: string;
+  int_generate_btn?: string;
+
+  // Donations Tracker
+  donations_badge?: string;
+  donations_title?: string;
+  donations_subtitle?: string;
+  donations_total_label?: string;
+  donations_donors_label?: string;
+  donations_features_label?: string;
+  donations_avg_label?: string;
+  donations_cta_title?: string;
+  donations_cta_subtitle?: string;
+  donations_custom_amount?: string;
+  donations_your_name?: string;
+  donations_optional_msg?: string;
+  donations_btn?: string;
+  donations_recent_title?: string;
+  donations_recent_empty?: string;
+  donations_modal_title?: string;
+  donations_modal_desc1?: string;
+  donations_modal_desc2?: string;
+  donations_modal_btn?: string;
+  donations_quick_custom?: string;
+  donations_payment_method?: string;
 
   // Footer
   footer_tagline: string;
@@ -128,4 +156,7 @@ export interface TranslationStrings {
   // Language selector
   lang_search: string;
   lang_title: string;
+  lang_not_found?: string;
 }
+
+export type StrictTranslationStrings = Required<TranslationStrings>;

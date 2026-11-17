@@ -1,4 +1,4 @@
-import { TranslationStrings } from './types';
+import type { TranslationStrings } from './types';
 
 export const lo: TranslationStrings = {
   nav_home: 'ໜ້າຫຼັກ',

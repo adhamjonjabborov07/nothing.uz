@@ -1,9 +1,9 @@
 import { useRef } from 'react';
-import { motion, useInView } from 'framer-motion';
+import { motion, useInView, type Variants } from 'framer-motion';
 import { useLanguage } from '../i18n';
 import { ShieldCheck } from 'lucide-react';
 
-const container = {
+const container: Variants = {
   hidden: { opacity: 0 },
   show: {
     opacity: 1,
@@ -11,7 +11,7 @@ const container = {
   },
 };
 
-const item = {
+const item: Variants = {
   hidden: { opacity: 0, y: 20 },
   show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] } },
 };
@@ -32,7 +32,7 @@ export default function Disclaimer() {
   ];
 
   return (
-    <section className="section-dark py-32 px-6">
+    <section id="disclaimer" className="section-dark py-32 px-6">
       <motion.div
         ref={ref}
         variants={container}

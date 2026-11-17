@@ -1,4 +1,4 @@
-import { TranslationStrings } from './types';
+import type { TranslationStrings } from './types';
 
 export const ta: TranslationStrings = {
   nav_home: 'முகப்பு',

@@ -1,10 +1,12 @@
-import { TranslationStrings } from './types';
+import type { TranslationStrings } from './types';
 
-export const ru: TranslationStrings = {
+export const ru: Required<TranslationStrings> = {
   nav_home: 'Главная',
   nav_about: 'О Nothing',
   nav_subscriptions: 'Подписки',
   nav_faq: 'FAQ',
+  nav_donations: 'Донаты',
+
   hero_label: 'ОСН. В 2026 ГОДУ · ПРЕДОСТАВЛЯЕМ НИЧЕГО С ПЕРВОГО ДНЯ',
   hero_title_1: 'Добро пожаловать в',
   hero_title_2: 'Абсолютное Ничего.',
@@ -12,6 +14,7 @@ export const ru: TranslationStrings = {
   hero_btn_primary: 'Узнать о Nothing',
   hero_btn_secondary: 'Подписаться на Nothing',
   hero_footnote: '100 языков. 0 функций. 1 бессмысленный сайт.',
+
   what_title: 'Итак... Что же такое Nothing?',
   what_text_1: 'Nothing — это революционная концепция, созданная для того, чтобы доставлять абсолютно ничего абсолютно каждому.',
   what_text_2: 'Мы не продаем товары.',
@@ -28,6 +31,7 @@ export const ru: TranslationStrings = {
   what_col3_num: '03',
   what_col3_title: 'Никакой цели',
   what_col3_text: 'Мы понятия не имеем, почему вы здесь. Но добро пожаловать.',
+
   sub_title: 'Выберите своё Nothing.',
   sub_subtitle: 'Три эксклюзивных способа получить ровно то же самое количество ничего.',
   sub_basic_name: 'BASIC NOTHING',
@@ -59,10 +63,12 @@ export const ru: TranslationStrings = {
   sub_ultra_f4: 'Никакого особого отношения.',
   sub_ultra_f5: 'Ровно такое же ничего, как и у всех остальных.',
   sub_ultra_btn: 'Стать Ultra Nothing',
+
   modal_title: 'Поздравляем!',
   modal_text_1: 'Вы успешно выбрали абсолютно ничего.',
   modal_text_2: 'Ваша подписка включает в себя... абсолютно ничего.',
   modal_btn: 'Прекрасно. Я ничего и не ждал.',
+
   disclaimer_title: 'И последнее. Мы говорим о Nothing совершенно серьезно.',
   disclaimer_text_1: 'Прежде чем оформить подписку, мы хотим прояснить один момент.',
   disclaimer_text_2: 'Мы никого не принуждаем к оформлению подписки.',
@@ -72,6 +78,7 @@ export const ru: TranslationStrings = {
   disclaimer_text_6: 'Указанные цены являются частью сатирического проекта. Оплата не взимается.',
   disclaimer_text_7: 'От вас не требуется ничего покупать.',
   disclaimer_text_8: 'Выбирая Nothing, вы подтверждаете, что выбираете... ничего.',
+
   faq_title: 'Часто задаваемые вопросы',
   faq_q1: 'Что я получу после оформления подписки?',
   faq_a1: 'Абсолютно ничего.',
@@ -89,6 +96,7 @@ export const ru: TranslationStrings = {
   faq_a7: 'Контента нет. Наслаждайтесь его полным отсутствием.',
   faq_q8: 'У вас есть служба поддержки?',
   faq_a8: 'Мы не оказываем абсолютно никакой поддержки. Но ценим ваш интерес.',
+
   int_give_me: 'Дайте мне что-нибудь',
   int_give_me_result: 'Простите. Что-нибудь у нас закончилось.',
   int_generate: 'Сгенерировать Nothing',
@@ -105,10 +113,40 @@ export const ru: TranslationStrings = {
   int_random_3: 'Поздравляем. Ничего не изменилось.',
   int_random_4: 'Ваше ничего готово.',
   int_random_5: 'Нам не о чем сообщить.',
+  int_badge: 'Интерактивный опыт',
+  int_title: 'Попробуйте наше Nothing',
+  int_start_loading: 'Начать загрузку',
+  int_generate_btn: 'Сгенерировать',
+
+  // Donations Tracker
+  donations_badge: '100% Настоящее Ничего',
+  donations_title: 'Сколько пользователи задонатили в Nothing?',
+  donations_subtitle: 'Щедрые люди со всего мира переводят реальные деньги абсолютно ни за что взамен. Вот наша статистика в прямом эфире.',
+  donations_total_label: 'Всего задоначено пользователями',
+  donations_donors_label: 'Щедрых донатеров',
+  donations_features_label: 'Предоставлено функций',
+  donations_avg_label: 'Средний донат',
+  donations_cta_title: 'Задонатить в Nothing',
+  donations_cta_subtitle: 'Выберите сумму, чтобы поддержать Nothing. Никаких товаров, никаких услуг — чистый альтруистический абсурд.',
+  donations_custom_amount: 'Своя сумма (UZS)',
+  donations_your_name: 'Ваше имя или никнейм',
+  donations_optional_msg: 'Сообщение (необязательно)',
+  donations_btn: 'Отправить донат в Nothing',
+  donations_recent_title: 'Недавние щедрые донатеры',
+  donations_recent_empty: 'Будьте первым, кто задонатит в Nothing!',
+  donations_modal_title: 'Донат получен!',
+  donations_modal_desc1: 'Вы официально задонатили в Абсолютное Ничего.',
+  donations_modal_desc2: 'Ваши средства учтены в нашей казне Ничего. Мы торжественно обещаем предоставить 0 функций и 0 услуг. Спасибо за вашу щедрость!',
+  donations_modal_btn: 'С гордостью готово',
+  donations_quick_custom: 'Другая сумма',
+  donations_payment_method: 'Выберите способ оплаты',
+
   footer_tagline: 'Не делаем ничего с 2026 года.',
   footer_copyright: '© 2026 NOTHING.UZ. Все права защищены. Ничего не включено.',
   footer_built: 'Создано со 100% отдачей ради 0% функционала.',
   footer_disclaimer: 'Отказ от ответственности',
+
   lang_search: 'Поиск языков...',
   lang_title: 'Выберите язык',
+  lang_not_found: 'Языки не найдены',
 };

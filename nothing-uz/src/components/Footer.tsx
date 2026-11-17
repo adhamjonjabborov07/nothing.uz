@@ -1,4 +1,3 @@
-import { motion } from 'framer-motion';
 import { useLanguage } from '../i18n';
 
 export default function Footer() {
@@ -8,6 +7,7 @@ export default function Footer() {
     { label: t.nav_home, href: '#home' },
     { label: t.nav_about, href: '#about' },
     { label: t.nav_subscriptions, href: '#subscriptions' },
+    { label: t.nav_donations, href: '#donations' },
     { label: t.nav_faq, href: '#faq' },
     { label: t.footer_disclaimer, href: '#disclaimer' },
   ];

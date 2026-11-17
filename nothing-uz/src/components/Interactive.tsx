@@ -1,9 +1,9 @@
 import { useState, useRef, useEffect, useCallback } from 'react';
-import { motion, useInView, AnimatePresence } from 'framer-motion';
+import { motion, useInView, AnimatePresence, type Variants } from 'framer-motion';
 import { useLanguage } from '../i18n';
 import { Wand2, Loader2, BarChart3, Hash, Mail, Shuffle, Sparkles } from 'lucide-react';
 
-const container = {
+const container: Variants = {
   hidden: { opacity: 0 },
   show: {
     opacity: 1,
@@ -11,7 +11,7 @@ const container = {
   },
 };
 
-const item = {
+const item: Variants = {
   hidden: { opacity: 0, y: 30 },
   show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] } },
 };
@@ -93,10 +93,10 @@ export default function Interactive() {
         <motion.div variants={item} className="text-center mb-16">
           <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-white/10 text-xs font-medium text-white/40 tracking-widest uppercase mb-6">
             <Sparkles size={12} />
-            Interactive Experiences
+            {t.int_badge}
           </span>
           <h2 className="text-section font-extrabold text-white">
-            Try Our Nothing
+            {t.int_title}
           </h2>
         </motion.div>
 
@@ -165,7 +165,7 @@ export default function Interactive() {
               disabled={loading}
               className="btn-secondary text-sm mb-4 w-full disabled:opacity-50"
             >
-              {loading ? t.int_loading : 'Start Loading'}
+              {loading ? t.int_loading : t.int_start_loading}
             </button>
             {loading && (
               <div className="space-y-2">
@@ -240,7 +240,7 @@ export default function Interactive() {
             >
               {t.int_contact}
             </button>
-            <p className="text-white/40 text-sm text-center">
+            <p id="contact-result" className="text-white/40 text-sm text-center">
               {t.int_contact_result}
             </p>
           </InteractiveCard>
@@ -257,7 +257,7 @@ export default function Interactive() {
             >
               <span className="flex items-center justify-center gap-2">
                 <Shuffle size={14} />
-                Generate
+                {t.int_generate_btn}
               </span>
             </button>
             <AnimatePresence mode="wait">

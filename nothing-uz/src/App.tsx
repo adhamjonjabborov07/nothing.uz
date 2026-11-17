@@ -2,6 +2,7 @@ import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import WhatIsNothing from './components/WhatIsNothing';
 import Subscriptions from './components/Subscriptions';
+import Donations from './components/Donations';
 import Interactive from './components/Interactive';
 import Disclaimer from './components/Disclaimer';
 import FAQ from './components/FAQ';
@@ -15,6 +16,7 @@ export default function App() {
         <Hero />
         <WhatIsNothing />
         <Subscriptions />
+        <Donations />
         <Interactive />
         <Disclaimer />
         <FAQ />

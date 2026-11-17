@@ -1,4 +1,4 @@
-import { TranslationStrings } from './types';
+import type { TranslationStrings } from './types';
 
 export const ne: TranslationStrings = {
   nav_home: 'गृहपृष्ठ',

@@ -1,33 +1,44 @@
 import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
-import type { TranslationStrings } from './types';
+import type { StrictTranslationStrings } from './types';
 import { languages } from './languages';
 import type { Language } from './languages';
 import { en } from './translations/en';
+import { uz } from './translations/uz';
 
 interface LanguageContextType {
   language: string;
   setLanguage: (code: string) => void;
-  t: TranslationStrings;
+  t: StrictTranslationStrings;
   currentLanguage: Language;
   isRTL: boolean;
 }
 
+const defaultLang = languages[0]; // Uzbek
+
 const LanguageContext = createContext<LanguageContextType>({
-  language: 'en',
+  language: defaultLang.code,
   setLanguage: () => {},
-  t: en,
-  currentLanguage: languages[1],
+  t: uz as StrictTranslationStrings,
+  currentLanguage: defaultLang,
   isRTL: false,
 });
 
 export const useLanguage = () => useContext(LanguageContext);
 
-// Lazy-load translations
-const translationModules = import.meta.glob('./translations/*.ts') as Record<string, () => Promise<{ [key: string]: TranslationStrings }>>;
+// Lazy-load other translations (exclude en, uz, and types which are statically managed)
+const translationModules = import.meta.glob([
+  './translations/*.ts',
+  '!./translations/en.ts',
+  '!./translations/uz.ts',
+  '!./translations/types.ts',
+]) as Record<string, () => Promise<{ [key: string]: any }>>;
 
-const translationCache: Record<string, TranslationStrings> = { en };
+const translationCache: Record<string, StrictTranslationStrings> = {
+  en: en as StrictTranslationStrings,
+  uz: uz as StrictTranslationStrings,
+};
 
-async function loadTranslation(code: string): Promise<TranslationStrings> {
+async function loadTranslation(code: string): Promise<StrictTranslationStrings> {
   if (translationCache[code]) return translationCache[code];
 
   const fileCode = code.replace('-', '_');
@@ -39,22 +50,28 @@ async function loadTranslation(code: string): Promise<TranslationStrings> {
       const key = Object.keys(mod).find(k => k !== 'default') || fileCode;
       const translation = mod[key] || mod.default;
       if (translation) {
-        translationCache[code] = translation;
-        return translation;
+        const merged = { ...en, ...translation } as StrictTranslationStrings;
+        translationCache[code] = merged;
+        return merged;
       }
     } catch (e) {
       console.warn(`Failed to load translation for ${code}:`, e);
     }
   }
 
-  return en;
+  return en as StrictTranslationStrings;
 }
 
 function detectBrowserLanguage(): string {
-  const browserLang = navigator.language || (navigator as any).userLanguage || 'en';
-  const code = browserLang.split('-')[0].toLowerCase();
+  if (typeof navigator === 'undefined') return 'uz';
+  const browserLang = navigator.language || (navigator as any).userLanguage || 'uz';
+  const full = browserLang.toLowerCase();
+  if (full.includes('cyrl') && languages.find(l => l.code === 'uz-cyrl')) {
+    return 'uz-cyrl';
+  }
+  const code = full.split('-')[0].toLowerCase();
   const found = languages.find(l => l.code === code);
-  return found ? found.code : 'en';
+  return found ? found.code : 'uz';
 }
 
 export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
@@ -64,9 +81,13 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     return detectBrowserLanguage();
   });
 
-  const [translations, setTranslations] = useState<TranslationStrings>(en);
+  const [translations, setTranslations] = useState<StrictTranslationStrings>(() => {
+    if (language === 'uz') return uz as StrictTranslationStrings;
+    if (language === 'en') return en as StrictTranslationStrings;
+    return uz as StrictTranslationStrings;
+  });
 
-  const currentLanguage = languages.find(l => l.code === language) || languages[1];
+  const currentLanguage = languages.find(l => l.code === language) || languages[0];
   const isRTL = currentLanguage.rtl || false;
 
   const setLanguage = useCallback((code: string) => {

@@ -1,4 +1,4 @@
-import { TranslationStrings } from './types';
+import type { TranslationStrings } from './types';
 
 export const ja: TranslationStrings = {
   nav_home: 'ホーム',

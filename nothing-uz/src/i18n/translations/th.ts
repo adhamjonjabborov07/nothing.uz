@@ -1,4 +1,4 @@
-import { TranslationStrings } from './types';
+import type { TranslationStrings } from './types';
 
 export const th: TranslationStrings = {
   nav_home: 'หน้าแรก',

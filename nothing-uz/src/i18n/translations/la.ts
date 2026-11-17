@@ -1,4 +1,4 @@
-import { TranslationStrings } from './types';
+import type { TranslationStrings } from './types';
 
 export const la: TranslationStrings = {
   nav_home: 'Initium',

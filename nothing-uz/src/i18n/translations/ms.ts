@@ -1,4 +1,4 @@
-import { TranslationStrings } from './types';
+import type { TranslationStrings } from './types';
 
 export const ms: TranslationStrings = {
   nav_home: 'Laman Utama',

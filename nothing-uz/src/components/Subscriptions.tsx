@@ -1,9 +1,10 @@
 import { useState, useRef } from 'react';
-import { motion, useInView, AnimatePresence } from 'framer-motion';
+import { motion, useInView, AnimatePresence, type Variants } from 'framer-motion';
 import { useLanguage } from '../i18n';
-import { Check, Star, Zap, X } from 'lucide-react';
+import { recordDonation } from '../utils/donationState';
+import { Check, Star, Zap, X, Heart } from 'lucide-react';
 
-const container = {
+const container: Variants = {
   hidden: { opacity: 0 },
   show: {
     opacity: 1,
@@ -11,12 +12,22 @@ const container = {
   },
 };
 
-const cardVariant = {
+const cardVariant: Variants = {
   hidden: { opacity: 0, y: 50 },
   show: { opacity: 1, y: 0, transition: { duration: 0.7, ease: [0.16, 1, 0.3, 1] } },
 };
 
-function SubscriptionModal({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) {
+function SubscriptionModal({
+  isOpen,
+  onClose,
+  planName,
+  priceStr
+}: {
+  isOpen: boolean;
+  onClose: () => void;
+  planName: string;
+  priceStr: string;
+}) {
   const { t } = useLanguage();
 
   return (
@@ -57,10 +68,17 @@ function SubscriptionModal({ isOpen, onClose }: { isOpen: boolean; onClose: () =
             <h3 className="text-2xl font-bold text-white mb-3">
               {t.modal_title}
             </h3>
-            <p className="text-white/50 mb-2">
+            <p className="text-white/70 font-semibold mb-1">
+              {planName} — {priceStr}
+            </p>
+            <p className="text-white/50 mb-2 text-sm">
               {t.modal_text_1}
             </p>
-            <p className="text-white/40 text-sm mb-8">
+            <div className="my-4 p-3 rounded-xl bg-white/5 border border-white/10 text-xs text-white/60 flex items-center justify-center gap-2">
+              <Heart size={14} className="text-white/80" />
+              <span>Xayriyalar hisoblagichiga qo‘shildi! / Added to Donations tracker!</span>
+            </div>
+            <p className="text-white/40 text-xs mb-8">
               {t.modal_text_2}
             </p>
             <button onClick={onClose} className="btn-primary w-full">
@@ -76,6 +94,11 @@ function SubscriptionModal({ isOpen, onClose }: { isOpen: boolean; onClose: () =
 export default function Subscriptions() {
   const { t } = useLanguage();
   const [modalOpen, setModalOpen] = useState(false);
+  const [selectedPlan, setSelectedPlan] = useState<{ name: string; price: string; numPrice: number }>({
+    name: '',
+    price: '',
+    numPrice: 0,
+  });
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: '-100px' });
 
@@ -83,6 +106,7 @@ export default function Subscriptions() {
     {
       name: t.sub_basic_name,
       price: t.sub_basic_price,
+      numPrice: 11111,
       desc: t.sub_basic_desc,
       features: [t.sub_basic_f1, t.sub_basic_f2, t.sub_basic_f3, t.sub_basic_f4, t.sub_basic_f5],
       btn: t.sub_basic_btn,
@@ -92,6 +116,7 @@ export default function Subscriptions() {
     {
       name: t.sub_premium_name,
       price: t.sub_premium_price,
+      numPrice: 22222,
       desc: t.sub_premium_desc,
       features: [t.sub_premium_f1, t.sub_premium_f2, t.sub_premium_f3, t.sub_premium_f4, t.sub_premium_f5],
       btn: t.sub_premium_btn,
@@ -101,6 +126,7 @@ export default function Subscriptions() {
     {
       name: t.sub_ultra_name,
       price: t.sub_ultra_price,
+      numPrice: 33333,
       desc: t.sub_ultra_desc,
       features: [t.sub_ultra_f1, t.sub_ultra_f2, t.sub_ultra_f3, t.sub_ultra_f4, t.sub_ultra_f5],
       btn: t.sub_ultra_btn,
@@ -108,6 +134,13 @@ export default function Subscriptions() {
       badge: t.sub_ultra_badge,
     },
   ];
+
+  const handleSubscribe = (plan: typeof plans[0]) => {
+    setSelectedPlan({ name: plan.name, price: plan.price, numPrice: plan.numPrice });
+    // Record into global user donation stats!
+    recordDonation(plan.numPrice, `${plan.name} Obunachisi`, `Obuna orqali Nothing-ni qo‘llab-quvvatladi`);
+    setModalOpen(true);
+  };
 
   return (
     <>
@@ -158,11 +191,11 @@ export default function Subscriptions() {
                 )}
 
                 {/* Plan name */}
-<p className={`text-xs font-semibold tracking-[0.2em] mb-6 ${
-                   plan.featured ? 'text-white/50' : 'text-white/50'
-                 }`}>
-                   {plan.name}
-                 </p>
+                <p className={`text-xs font-semibold tracking-[0.2em] mb-6 ${
+                  plan.featured ? 'text-white/50' : 'text-white/50'
+                }`}>
+                  {plan.name}
+                </p>
 
                 {/* Price */}
                 <div className="mb-6">
@@ -179,19 +212,19 @@ export default function Subscriptions() {
                 </div>
 
                 {/* Description */}
-<p className={`text-sm mb-8 ${
-                   plan.featured ? 'text-white/60' : 'text-white/40'
-                 }`}>
-                   {plan.desc}
-                 </p>
+                <p className={`text-sm mb-8 ${
+                  plan.featured ? 'text-white/60' : 'text-white/40'
+                }`}>
+                  {plan.desc}
+                </p>
 
                 {/* Features */}
                 <ul className="space-y-3 mb-8">
                   {plan.features.map((feature, j) => (
                     <li key={j} className="flex items-start gap-3">
-<Check size={16} className={`mt-0.5 flex-shrink-0 ${
-                    plan.featured ? 'text-white/30' : 'text-white/30'
-                  }`} />
+                      <Check size={16} className={`mt-0.5 flex-shrink-0 ${
+                        plan.featured ? 'text-white/30' : 'text-white/30'
+                      }`} />
                       <span className={`text-sm ${
                         plan.featured ? 'text-white/60' : 'text-white/50'
                       }`}>
@@ -203,7 +236,7 @@ export default function Subscriptions() {
 
                 {/* Button */}
                 <button
-                  onClick={() => setModalOpen(true)}
+                  onClick={() => handleSubscribe(plan)}
                   className={`w-full py-3 rounded-full text-sm font-semibold transition-all ${
                     plan.featured
                       ? 'bg-white text-nothing-black hover:bg-white/90'
@@ -218,7 +251,12 @@ export default function Subscriptions() {
         </motion.div>
       </section>
 
-      <SubscriptionModal isOpen={modalOpen} onClose={() => setModalOpen(false)} />
+      <SubscriptionModal
+        isOpen={modalOpen}
+        onClose={() => setModalOpen(false)}
+        planName={selectedPlan.name}
+        priceStr={selectedPlan.price}
+      />
     </>
   );
 }

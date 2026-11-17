@@ -12,6 +12,7 @@ export default function Navbar() {
     { label: t.nav_home, href: '#home' },
     { label: t.nav_about, href: '#about' },
     { label: t.nav_subscriptions, href: '#subscriptions' },
+    { label: t.nav_donations, href: '#donations' },
     { label: t.nav_faq, href: '#faq' },
   ];
 

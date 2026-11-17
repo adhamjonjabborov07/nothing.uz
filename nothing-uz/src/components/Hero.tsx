@@ -1,11 +1,11 @@
 import { Suspense, lazy } from 'react';
-import { motion } from 'framer-motion';
+import { motion, type Variants } from 'framer-motion';
 import { useLanguage } from '../i18n';
 import { ArrowDown, Sparkles } from 'lucide-react';
 
 const Scene3D = lazy(() => import('./Scene3D'));
 
-const container = {
+const container: Variants = {
   hidden: { opacity: 0 },
   show: {
     opacity: 1,
@@ -13,7 +13,7 @@ const container = {
   },
 };
 
-const item = {
+const item: Variants = {
   hidden: { opacity: 0, y: 30 },
   show: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] } },
 };

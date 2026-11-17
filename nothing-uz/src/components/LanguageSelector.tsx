@@ -83,7 +83,7 @@ export default function LanguageSelector() {
             <div className="overflow-y-auto max-h-72 overscroll-contain">
               {filtered.length === 0 ? (
                 <div className="p-6 text-center text-white/30 text-sm">
-                  No languages found
+                  {t.lang_not_found}
                 </div>
               ) : (
                 filtered.map((lang) => (

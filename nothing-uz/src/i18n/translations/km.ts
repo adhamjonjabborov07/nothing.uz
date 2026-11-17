@@ -1,4 +1,4 @@
-import { TranslationStrings } from './types';
+import type { TranslationStrings } from './types';
 
 export const km: TranslationStrings = {
   nav_home: 'ទំព័រដើម',
