@@ -1,6 +1,6 @@
 import type { TranslationStrings } from './types';
 
-export const mn: Required<TranslationStrings> = {
+export const mn: TranslationStrings = {
   nav_home: "Нүүр хуудас",
   nav_about: "Nothing тухай",
   nav_subscriptions: "Бүртгэл",

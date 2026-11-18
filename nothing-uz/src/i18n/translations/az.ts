@@ -1,6 +1,6 @@
 import type { TranslationStrings } from './types';
 
-export const az: Required<TranslationStrings> = {
+export const az: TranslationStrings = {
   nav_home: "Əsas səhifə",
   nav_about: "Nothing haqqında",
   nav_subscriptions: "Abunəliklər",

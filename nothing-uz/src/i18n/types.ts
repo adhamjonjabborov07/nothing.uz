@@ -5,6 +5,7 @@ export interface TranslationStrings {
   nav_subscriptions: string;
   nav_faq: string;
   nav_donations?: string;
+  nav_payment?: string;
 
   // Hero
   hero_label: string;
@@ -13,7 +14,29 @@ export interface TranslationStrings {
   hero_subtitle: string;
   hero_btn_primary: string;
   hero_btn_secondary: string;
+  hero_btn_payment?: string;
   hero_footnote: string;
+
+  // Payment Banner (top of page)
+  payment_banner_title?: string;
+  payment_banner_desc?: string;
+  payment_banner_btn?: string;
+  payment_banner_telegram?: string;
+  payment_banner_badge?: string;
+
+  // Payment Modal / Flow
+  payment_title?: string;
+  payment_subtitle?: string;
+  payment_step1?: string;
+  payment_step2?: string;
+  payment_step3?: string;
+  payment_telegram_btn?: string;
+  payment_telegram_note?: string;
+  payment_contact?: string;
+  payment_selected_plan?: string;
+  payment_total?: string;
+  payment_secure?: string;
+  payment_guarantee?: string;
 
   // What is Nothing
   what_title: string;
@@ -33,9 +56,33 @@ export interface TranslationStrings {
   what_col3_title: string;
   what_col3_text: string;
 
-  // Subscriptions
+  // Subscriptions — MICRO
   sub_title: string;
   sub_subtitle: string;
+  sub_micro_name?: string;
+  sub_micro_price?: string;
+  sub_micro_desc?: string;
+  sub_micro_f1?: string;
+  sub_micro_f2?: string;
+  sub_micro_f3?: string;
+  sub_micro_f4?: string;
+  sub_micro_f5?: string;
+  sub_micro_btn?: string;
+  sub_micro_badge?: string;
+
+  // Subscriptions — STARTER
+  sub_starter_name?: string;
+  sub_starter_price?: string;
+  sub_starter_desc?: string;
+  sub_starter_f1?: string;
+  sub_starter_f2?: string;
+  sub_starter_f3?: string;
+  sub_starter_f4?: string;
+  sub_starter_f5?: string;
+  sub_starter_btn?: string;
+  sub_starter_badge?: string;
+
+  // Subscriptions — BASIC (existing)
   sub_basic_name: string;
   sub_basic_price: string;
   sub_basic_desc: string;
@@ -45,6 +92,21 @@ export interface TranslationStrings {
   sub_basic_f4: string;
   sub_basic_f5: string;
   sub_basic_btn: string;
+  sub_basic_badge?: string;
+
+  // Subscriptions — STANDARD
+  sub_standard_name?: string;
+  sub_standard_price?: string;
+  sub_standard_desc?: string;
+  sub_standard_f1?: string;
+  sub_standard_f2?: string;
+  sub_standard_f3?: string;
+  sub_standard_f4?: string;
+  sub_standard_f5?: string;
+  sub_standard_btn?: string;
+  sub_standard_badge?: string;
+
+  // Subscriptions — PREMIUM (existing)
   sub_premium_name: string;
   sub_premium_badge: string;
   sub_premium_price: string;
@@ -55,6 +117,20 @@ export interface TranslationStrings {
   sub_premium_f4: string;
   sub_premium_f5: string;
   sub_premium_btn: string;
+
+  // Subscriptions — PRO
+  sub_pro_name?: string;
+  sub_pro_price?: string;
+  sub_pro_desc?: string;
+  sub_pro_f1?: string;
+  sub_pro_f2?: string;
+  sub_pro_f3?: string;
+  sub_pro_f4?: string;
+  sub_pro_f5?: string;
+  sub_pro_btn?: string;
+  sub_pro_badge?: string;
+
+  // Subscriptions — ULTRA (existing)
   sub_ultra_name: string;
   sub_ultra_badge: string;
   sub_ultra_price: string;
@@ -65,6 +141,42 @@ export interface TranslationStrings {
   sub_ultra_f4: string;
   sub_ultra_f5: string;
   sub_ultra_btn: string;
+
+  // Subscriptions — ENTERPRISE
+  sub_enterprise_name?: string;
+  sub_enterprise_price?: string;
+  sub_enterprise_desc?: string;
+  sub_enterprise_f1?: string;
+  sub_enterprise_f2?: string;
+  sub_enterprise_f3?: string;
+  sub_enterprise_f4?: string;
+  sub_enterprise_f5?: string;
+  sub_enterprise_btn?: string;
+  sub_enterprise_badge?: string;
+
+  // Subscriptions — DIAMOND
+  sub_diamond_name?: string;
+  sub_diamond_price?: string;
+  sub_diamond_desc?: string;
+  sub_diamond_f1?: string;
+  sub_diamond_f2?: string;
+  sub_diamond_f3?: string;
+  sub_diamond_f4?: string;
+  sub_diamond_f5?: string;
+  sub_diamond_btn?: string;
+  sub_diamond_badge?: string;
+
+  // Subscriptions — LIFETIME
+  sub_lifetime_name?: string;
+  sub_lifetime_price?: string;
+  sub_lifetime_desc?: string;
+  sub_lifetime_f1?: string;
+  sub_lifetime_f2?: string;
+  sub_lifetime_f3?: string;
+  sub_lifetime_f4?: string;
+  sub_lifetime_f5?: string;
+  sub_lifetime_btn?: string;
+  sub_lifetime_badge?: string;
 
   // Modal
   modal_title: string;
@@ -152,6 +264,7 @@ export interface TranslationStrings {
   footer_copyright: string;
   footer_built: string;
   footer_disclaimer: string;
+  footer_telegram?: string;
 
   // Language selector
   lang_search: string;
@@ -159,4 +272,4 @@ export interface TranslationStrings {
   lang_not_found?: string;
 }
 
-export type StrictTranslationStrings = Required<TranslationStrings>;
+export type StrictTranslationStrings = TranslationStrings;

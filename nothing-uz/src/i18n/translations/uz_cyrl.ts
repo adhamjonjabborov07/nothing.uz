@@ -1,6 +1,6 @@
 import type { TranslationStrings } from './types';
 
-export const uz_cyrl: Required<TranslationStrings> = {
+export const uz_cyrl: TranslationStrings = {
   nav_home: 'Бош саҳифа',
   nav_about: 'Nothing ҳақида',
   nav_subscriptions: 'Обуналар',

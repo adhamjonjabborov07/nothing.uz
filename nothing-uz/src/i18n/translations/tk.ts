@@ -1,6 +1,6 @@
 import type { TranslationStrings } from './types';
 
-export const tk: Required<TranslationStrings> = {
+export const tk: TranslationStrings = {
   nav_home: "Baş sahypa",
   nav_about: "Nothing barada",
   nav_subscriptions: "Abunalyklar",

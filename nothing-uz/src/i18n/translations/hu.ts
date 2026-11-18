@@ -1,6 +1,6 @@
 import type { TranslationStrings } from './types';
 
-export const hu: Required<TranslationStrings> = {
+export const hu: TranslationStrings = {
   nav_home: "Főoldal",
   nav_about: "A Nothing-ról",
   nav_subscriptions: "Előfizetések",
