@@ -46,7 +46,24 @@ export function ScrollProgressBar() {
    2. INFINITE MOTION TICKER (<Ticker>)
    ========================================================================= */
 export function Ticker({ items }: { items?: string[] }) {
+  const [broadcast, setBroadcast] = useState<string | null>(() => {
+    if (typeof window !== 'undefined') {
+      return localStorage.getItem('nothing_broadcast_msg');
+    }
+    return null;
+  });
+
+  useEffect(() => {
+    const handleBroadcast = (e: Event) => {
+      const customEvent = e as CustomEvent<string | null>;
+      setBroadcast(customEvent.detail ?? null);
+    };
+    window.addEventListener('nothing-broadcast-updated', handleBroadcast);
+    return () => window.removeEventListener('nothing-broadcast-updated', handleBroadcast);
+  }, []);
+
   const defaultItems = [
+    broadcast ? `👑 ASOSCHI @UZOUF: ${broadcast}` : null,
     'MUTLAQO HECH NARSA',
     '0% FUNKSIYA',
     '100% KAFOLATLANGAN BO‘SHLIQ',
@@ -55,15 +72,15 @@ export function Ticker({ items }: { items?: string[] }) {
     'ZERO GUARANTEES',
     'DOING ABSOLUTELY NOTHING',
     'SOTIB OLING VA HECH NARSA OLING',
-  ];
+  ].filter(Boolean) as string[];
 
-  const list = items || defaultItems;
+  const list = items ? (broadcast ? [`👑 @UZOUF: ${broadcast}`, ...items] : items) : defaultItems;
   const repeated = [...list, ...list, ...list];
 
   return (
-    <div className="relative w-full overflow-hidden py-3 bg-zinc-950 border-y border-white/10 flex items-center select-none">
-      <div className="absolute left-0 inset-y-0 w-16 bg-gradient-to-r from-zinc-950 to-transparent z-10 pointer-events-none" />
-      <div className="absolute right-0 inset-y-0 w-16 bg-gradient-to-l from-zinc-950 to-transparent z-10 pointer-events-none" />
+    <div className="relative w-full overflow-hidden py-3 bg-[var(--color-bg-secondary,#131A26)] border-y border-white/10 flex items-center select-none">
+      <div className="absolute left-0 inset-y-0 w-16 bg-gradient-to-r from-[var(--color-bg-secondary,#131A26)] to-transparent z-10 pointer-events-none" />
+      <div className="absolute right-0 inset-y-0 w-16 bg-gradient-to-l from-[var(--color-bg-secondary,#131A26)] to-transparent z-10 pointer-events-none" />
 
       <motion.div
         animate={{ x: ['0%', '-33.333%'] }}
@@ -74,12 +91,17 @@ export function Ticker({ items }: { items?: string[] }) {
         }}
         className="flex items-center gap-8 whitespace-nowrap will-change-transform"
       >
-        {repeated.map((text, i) => (
-          <div key={i} className="flex items-center gap-8 text-xs font-black tracking-widest text-zinc-300 uppercase">
-            <span>{text}</span>
-            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400/80 shadow-sm shadow-emerald-400" />
-          </div>
-        ))}
+        {repeated.map((text, i) => {
+          const isFounderBroadcast = text.startsWith('👑');
+          return (
+            <div key={i} className="flex items-center gap-8 text-xs font-black tracking-widest uppercase">
+              <span className={isFounderBroadcast ? 'text-amber-400 bg-amber-500/15 px-3 py-1 rounded-full border border-amber-500/30 shadow-md shadow-amber-500/10' : 'text-zinc-200'}>
+                {text}
+              </span>
+              <span className={`w-1.5 h-1.5 rounded-full ${isFounderBroadcast ? 'bg-amber-400 shadow-sm shadow-amber-400' : 'bg-emerald-400/80 shadow-sm shadow-emerald-400'}`} />
+            </div>
+          );
+        })}
       </motion.div>
     </div>
   );

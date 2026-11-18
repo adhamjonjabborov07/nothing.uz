@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { MotionConfig } from 'framer-motion';
 import { ThemeProvider } from './theme/ThemeContext';
 import ThemeSelector from './components/ThemeSelector';
@@ -13,6 +13,7 @@ import Disclaimer from './components/Disclaimer';
 import FAQ from './components/FAQ';
 import Footer from './components/Footer';
 import PaymentModal from './components/PaymentModal';
+import FounderProfileModal from './components/FounderProfileModal';
 import {
   ScrollProgressBar,
   Ticker,
@@ -22,11 +23,24 @@ import {
 
 export default function App() {
   const [globalPaymentModalOpen, setGlobalPaymentModalOpen] = useState(false);
+  const [founderModalOpen, setFounderModalOpen] = useState(false);
   const [modalPlan, setModalPlan] = useState({
     name: 'PREMIUM NOTHING',
     price: '22,222 UZS',
     numPrice: 22222,
   });
+
+  // Secret founder keyboard shortcut: Ctrl + Shift + U
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === 'u') {
+        e.preventDefault();
+        setFounderModalOpen((prev) => !prev);
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, []);
 
   const handleOpenPayment = (planName = 'PREMIUM NOTHING', price = '22,222 UZS') => {
     setModalPlan({
@@ -60,8 +74,11 @@ export default function App() {
           {/* 1. Prominent Top Notification / Payment Banner */}
           <PaymentBanner onOpenPayment={handleOpenPayment} />
 
-        {/* 2. Sleek Sticky Navbar with Payment & Telegram buttons */}
-        <Navbar onOpenPayment={handleOpenPayment} />
+          {/* 2. Sleek Sticky Navbar with Payment & Telegram buttons */}
+          <Navbar
+            onOpenPayment={handleOpenPayment}
+            onOpenFounderProfile={() => setFounderModalOpen(true)}
+          />
 
         <main>
           {/* 3. Hero with 3D animation, ScrambleText & Telegram @uzouf payment triggers */}
@@ -114,6 +131,12 @@ export default function App() {
           planName={modalPlan.name}
           priceStr={modalPlan.price}
           numPrice={modalPlan.numPrice}
+        />
+
+        {/* Exclusive Founder Profile Panel (Faqat @uzouf uchun) */}
+        <FounderProfileModal
+          isOpen={founderModalOpen}
+          onClose={() => setFounderModalOpen(false)}
         />
       </div>
     </MotionConfig>

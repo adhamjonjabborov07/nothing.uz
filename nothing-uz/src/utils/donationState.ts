@@ -76,3 +76,17 @@ export function recordDonation(amount: number, name?: string, message?: string):
 
   return updated;
 }
+
+export function resetDonations(): DonationStats {
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(BASE_STATS));
+  } catch (e) {
+    console.error('Failed to reset donations:', e);
+  }
+
+  if (typeof window !== 'undefined') {
+    window.dispatchEvent(new CustomEvent('nothing-donation-updated', { detail: BASE_STATS }));
+  }
+
+  return BASE_STATS;
+}

@@ -1,15 +1,16 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, Send, CreditCard } from 'lucide-react';
+import { Menu, X, Send, CreditCard, Crown } from 'lucide-react';
 import { useLanguage } from '../i18n';
 import LanguageSelector from './LanguageSelector';
 import ThemeSelector from './ThemeSelector';
 
 interface NavbarProps {
   onOpenPayment?: (planName?: string, price?: string) => void;
+  onOpenFounderProfile?: () => void;
 }
 
-export default function Navbar({ onOpenPayment }: NavbarProps) {
+export default function Navbar({ onOpenPayment, onOpenFounderProfile }: NavbarProps) {
   const { t } = useLanguage();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
@@ -103,6 +104,16 @@ export default function Navbar({ onOpenPayment }: NavbarProps) {
                 <span>@uzouf</span>
               </a>
 
+              {/* Founder exclusive profile trigger (@uzouf) */}
+              <button
+                onClick={onOpenFounderProfile}
+                className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/30 text-amber-300 hover:text-amber-200 text-xs font-bold transition-all shadow-sm shadow-amber-500/10 cursor-pointer"
+                title="Faqat @uzouf uchun maxsus profil"
+              >
+                <Crown size={13} className="text-amber-400" />
+                <span className="font-mono">@uzouf</span>
+              </button>
+
               {/* Theme Selector: 3 user behavior modes */}
               <ThemeSelector variant="navbar" />
 
@@ -152,6 +163,17 @@ export default function Navbar({ onOpenPayment }: NavbarProps) {
                   <span className="text-xs font-bold text-zinc-400">Mavzu / Xatti-harakat:</span>
                   <ThemeSelector variant="navbar" />
                 </div>
+
+                <button
+                  onClick={() => {
+                    setIsMenuOpen(false);
+                    onOpenFounderProfile?.();
+                  }}
+                  className="w-full py-2.5 rounded-xl bg-amber-500/15 border border-amber-500/30 text-amber-300 font-extrabold text-xs flex items-center justify-center gap-2 cursor-pointer shadow-sm"
+                >
+                  <Crown size={14} className="text-amber-400" />
+                  <span>Asoschi Profili (@uzouf)</span>
+                </button>
 
                 <button
                   onClick={handlePayClick}
