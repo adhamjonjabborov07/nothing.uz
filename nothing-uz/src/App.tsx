@@ -30,16 +30,46 @@ export default function App() {
     numPrice: 22222,
   });
 
-  // Secret founder keyboard shortcut: Ctrl + Shift + U
+  // Secret founder stealth triggers: typing "uzouf", Ctrl+Shift+U, or #uzouf in URL
   useEffect(() => {
+    let keyBuffer = '';
+
     const handleKeyDown = (e: KeyboardEvent) => {
+      // Don't trigger if user is typing into an input/textarea
+      if (e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement) {
+        return;
+      }
+
+      // 1. Cheat code: typing "uzouf" anywhere on the keyboard
+      keyBuffer = (keyBuffer + e.key.toLowerCase()).slice(-5);
+      if (keyBuffer === 'uzouf') {
+        setFounderModalOpen(true);
+        keyBuffer = '';
+        return;
+      }
+
+      // 2. Secret hotkey: Ctrl + Shift + U
       if (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === 'u') {
         e.preventDefault();
         setFounderModalOpen((prev) => !prev);
       }
     };
+
+    // 3. Secret URL hash trigger (e.g. site.uz/#uzouf)
+    const checkHash = () => {
+      if (window.location.hash === '#uzouf' || window.location.hash === '#admin') {
+        setFounderModalOpen(true);
+      }
+    };
+
+    checkHash();
+    window.addEventListener('hashchange', checkHash);
     window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
+
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+      window.removeEventListener('hashchange', checkHash);
+    };
   }, []);
 
   const handleOpenPayment = (planName = 'PREMIUM NOTHING', price = '22,222 UZS') => {

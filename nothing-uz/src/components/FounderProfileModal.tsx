@@ -84,19 +84,13 @@ export default function FounderProfileModal({ isOpen, onClose }: FounderProfileM
     if (e) e.preventDefault();
     const clean = pinInput.trim().toLowerCase();
     // Passphrase or PIN for founder
-    if (clean === 'uzouf' || clean === '7777' || clean === 'admin' || clean === 'nothing') {
+    if (clean === 'uzouf' || clean === 'uzouf2026' || clean === '7777') {
       setIsAuthenticated(true);
       setAuthError(false);
       localStorage.setItem('nothing_founder_auth', 'true');
     } else {
       setAuthError(true);
     }
-  };
-
-  const handleQuickOwnerEntry = () => {
-    setIsAuthenticated(true);
-    setAuthError(false);
-    localStorage.setItem('nothing_founder_auth', 'true');
   };
 
   const handleLogout = () => {
@@ -213,7 +207,7 @@ export default function FounderProfileModal({ isOpen, onClose }: FounderProfileM
                 Ushbu bo‘lim faqat Nothing.uz egasi va boshqaruvchisi <strong className="text-amber-400 font-bold">@uzouf</strong> uchun maxsus himoyalangan.
               </p>
 
-              <form onSubmit={handleLogin} className="space-y-4 mb-6">
+              <form onSubmit={handleLogin} className="space-y-4">
                 <div className="relative">
                   <input
                     type="password"
@@ -222,12 +216,13 @@ export default function FounderProfileModal({ isOpen, onClose }: FounderProfileM
                       setPinInput(e.target.value);
                       setAuthError(false);
                     }}
-                    placeholder="Maxfiy kalit yoki parol..."
-                    className="w-full px-4 py-3.5 rounded-2xl bg-white/5 border border-white/15 focus:border-amber-400 focus:outline-none text-white text-center font-mono text-sm"
+                    placeholder="Maxfiy kalit yoki PIN..."
+                    autoFocus
+                    className="w-full px-4 py-3.5 rounded-2xl bg-white/5 border border-white/15 focus:border-amber-400 focus:outline-none text-white text-center font-mono text-sm tracking-widest"
                   />
                   {authError && (
                     <p className="text-xs text-red-400 mt-2 font-medium">
-                      Parol noto‘g‘ri. Iltimos, qayta urinib ko‘ring.
+                      Maxfiy kalit noto‘g‘ri.
                     </p>
                   )}
                 </div>
@@ -237,20 +232,9 @@ export default function FounderProfileModal({ isOpen, onClose }: FounderProfileM
                   className="w-full py-3.5 rounded-2xl bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-300 hover:to-amber-400 text-black font-extrabold text-sm flex items-center justify-center gap-2 shadow-lg shadow-amber-500/20 transition-all cursor-pointer"
                 >
                   <Unlock size={16} />
-                  <span>Profilga kirish</span>
+                  <span>Tasdiqlash va kirish</span>
                 </button>
               </form>
-
-              {/* One-click owner verification for immediate convenience */}
-              <div className="pt-4 border-t border-white/10">
-                <button
-                  type="button"
-                  onClick={handleQuickOwnerEntry}
-                  className="text-xs text-zinc-400 hover:text-amber-300 underline underline-offset-4 transition-colors cursor-pointer"
-                >
-                  👑 Men haqiqatan ham @uzoufman (1 bosishda kirish)
-                </button>
-              </div>
             </div>
           ) : (
             /* ========================================================

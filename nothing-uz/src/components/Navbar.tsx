@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, Send, CreditCard, Crown } from 'lucide-react';
+import { Menu, X, Send, CreditCard } from 'lucide-react';
 import { useLanguage } from '../i18n';
 import LanguageSelector from './LanguageSelector';
 import ThemeSelector from './ThemeSelector';
@@ -13,6 +13,20 @@ interface NavbarProps {
 export default function Navbar({ onOpenPayment, onOpenFounderProfile }: NavbarProps) {
   const { t } = useLanguage();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const secretClickCount = useState(0);
+
+  const handleSecretDotClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    secretClickCount[1]((prev) => {
+      const next = prev + 1;
+      if (next >= 5) {
+        onOpenFounderProfile?.();
+        return 0;
+      }
+      return next;
+    });
+  };
 
   const links = [
     { label: t.nav_home, href: '#home' },
@@ -58,7 +72,11 @@ export default function Navbar({ onOpenPayment, onOpenFounderProfile }: NavbarPr
               }}
               className="text-lg sm:text-xl font-black tracking-tight text-white flex items-center gap-2 group"
             >
-              <span className="w-2.5 h-2.5 rounded-full bg-white group-hover:scale-125 transition-transform" />
+              <span
+                onClick={handleSecretDotClick}
+                className="w-2.5 h-2.5 rounded-full bg-white group-hover:scale-125 transition-transform"
+                title=""
+              />
               <span>NOTHING</span>
               <span className="text-white/40">.UZ</span>
             </a>
@@ -103,16 +121,6 @@ export default function Navbar({ onOpenPayment, onOpenFounderProfile }: NavbarPr
                 <Send size={12} />
                 <span>@uzouf</span>
               </a>
-
-              {/* Founder exclusive profile trigger (@uzouf) */}
-              <button
-                onClick={onOpenFounderProfile}
-                className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/30 text-amber-300 hover:text-amber-200 text-xs font-bold transition-all shadow-sm shadow-amber-500/10 cursor-pointer"
-                title="Faqat @uzouf uchun maxsus profil"
-              >
-                <Crown size={13} className="text-amber-400" />
-                <span className="font-mono">@uzouf</span>
-              </button>
 
               {/* Theme Selector: 3 user behavior modes */}
               <ThemeSelector variant="navbar" />
@@ -163,17 +171,6 @@ export default function Navbar({ onOpenPayment, onOpenFounderProfile }: NavbarPr
                   <span className="text-xs font-bold text-zinc-400">Mavzu / Xatti-harakat:</span>
                   <ThemeSelector variant="navbar" />
                 </div>
-
-                <button
-                  onClick={() => {
-                    setIsMenuOpen(false);
-                    onOpenFounderProfile?.();
-                  }}
-                  className="w-full py-2.5 rounded-xl bg-amber-500/15 border border-amber-500/30 text-amber-300 font-extrabold text-xs flex items-center justify-center gap-2 cursor-pointer shadow-sm"
-                >
-                  <Crown size={14} className="text-amber-400" />
-                  <span>Asoschi Profili (@uzouf)</span>
-                </button>
 
                 <button
                   onClick={handlePayClick}
